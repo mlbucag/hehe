@@ -60,14 +60,13 @@
             text-shadow: 2px 2px 15px rgba(255, 255, 255, 0.7);
         }
         .envelope-container {
-            width: 50px;
+            position: relative;
+            margin-top: 20px;
             cursor: pointer;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 2s ease-in-out, transform 2s ease-in-out;
-            filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.7));
-            margin-top: 10px;
         }
+        .envelope {
+            width: 120px;
+            transition: opacity 0.5s ease-in-out;
         .message-box {
             position: absolute;
             bottom: 80px;
