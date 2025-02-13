@@ -33,16 +33,43 @@
         .flower-container {
             position: relative;
             display: flex;
-            flex-direction: column;
             align-items: center;
+            gap: 10px;
             margin-top: 20px;
         }
         .flower {
-            width: 180px; /* Bigger size */
+            width: 180px;
             opacity: 0;
             transform: translateY(50px);
             transition: opacity 2s ease-in-out, transform 2s ease-in-out;
-            filter: drop-shadow(0 0 15px rgba(255, 192, 203, 0.6)); /* Glow effect */
+            filter: drop-shadow(0 0 15px rgba(255, 192, 203, 0.6));
+        }
+        .envelope-container {
+            width: 50px;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 2s ease-in-out, transform 2s ease-in-out;
+        }
+        .message-box {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            width: 200px;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            font-size: 14px;
+            color: #b03554;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+        .open .message-box {
+            transform: translateX(-50%) scale(1);
+            opacity: 1;
         }
         h2 {
             color: white;
@@ -62,7 +89,7 @@
             50% { transform: translateY(-10px); }
             100% { transform: translateY(0); }
         }
-        .flower.floating {
+        .floating {
             animation: float 3s infinite ease-in-out;
         }
 
@@ -85,18 +112,34 @@
     <h1 id="greeting">Happy Valentines, Ellapot! ❤️</h1>
 
     <div class="flower-container">
+        <!-- Flowers -->
         <img src="flowers.png" class="flower" id="flower">
-        <h2 id="message">Flowers for you 🌸</h2>
+        
+        <!-- Small Envelope beside the flower -->
+        <div class="envelope-container" id="envelope-container">
+            <img src="envelope.png" class="envelope" id="envelope">
+            <div class="message-box" id="message-box">
+                "You're special to me, and I hope this makes you smile. ❤️"
+            </div>
+        </div>
     </div>
 
+    <h2 id="message">Flowers for you 🌸</h2>
+
     <script>
-        // Show the flower with animation
+        // Show the flower & envelope with animation
         window.onload = function() {
             setTimeout(() => {
                 const flower = document.getElementById('flower');
+                const envelope = document.getElementById('envelope-container');
+
                 flower.style.opacity = 1;
                 flower.style.transform = "translateY(0)";
                 flower.classList.add("floating");
+
+                envelope.style.opacity = 1;
+                envelope.style.transform = "translateY(0)";
+                envelope.classList.add("floating");
 
                 setTimeout(() => {
                     document.getElementById('message').style.opacity = 1;
@@ -123,6 +166,12 @@
                 heart.remove();
             }, 5000);
         }
+
+        // Envelope interaction
+        const envelopeContainer = document.getElementById("envelope-container");
+        envelopeContainer.addEventListener("click", function () {
+            this.classList.toggle("open");
+        });
     </script>
 
 </body>
