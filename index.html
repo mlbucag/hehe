@@ -16,17 +16,17 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(to bottom, #ff9aa2, #ff758f, #ff4d6d);
+            background: linear-gradient(to bottom, #ffdde1, #fad0c4, #ff9a9e);
             font-family: 'Poppins', sans-serif;
             text-align: center;
             overflow: hidden;
             position: relative;
         }
         h1 {
-            font-size: 42px;
+            font-size: 40px;
             font-weight: bold;
             color: white;
-            text-shadow: 3px 3px 15px rgba(255, 255, 255, 0.8);
+            text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.8);
             animation: fadeIn 2s ease-in-out forwards;
         }
         .content {
@@ -34,46 +34,54 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin-top: 20px;
             position: relative;
         }
         .flower-container {
-            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
             margin-bottom: 20px;
         }
         .flower {
-            width: 220px;
+            width: 230px;
             opacity: 0;
             transform: translateY(50px);
             transition: opacity 2s ease-in-out, transform 2s ease-in-out;
-            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.7));
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
+        }
+        h2 {
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 15px rgba(255, 255, 255, 0.7);
         }
         .envelope-container {
-            width: 60px;
+            width: 50px;
             cursor: pointer;
-            margin-top: 10px;
             opacity: 0;
             transform: translateY(50px);
             transition: opacity 2s ease-in-out, transform 2s ease-in-out;
-            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.7));
+            filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.7));
+            margin-top: 10px;
         }
         .message-box {
             position: absolute;
-            bottom: 90px;
+            bottom: 80px;
             left: 50%;
             transform: translateX(-50%) scale(0);
             width: 250px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             padding: 15px;
-            border-radius: 15px;
-            box-shadow: 0 0 25px rgba(255, 192, 203, 0.7);
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(255, 182, 193, 0.5);
             text-align: center;
             font-size: 18px;
             font-weight: bold;
-            color: #ff3366;
+            color: #ff6b81;
             opacity: 0;
             transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
         }
@@ -81,31 +89,22 @@
             transform: translateX(-50%) scale(1);
             opacity: 1;
         }
-        h2 {
-            font-size: 30px;
-            font-weight: bold;
-            color: white;
-            opacity: 0;
-            transition: opacity 2s ease-in-out;
-            margin-top: 20px;
-            text-shadow: 2px 2px 15px rgba(255, 255, 255, 0.7);
-        }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
         @keyframes float {
             0% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+            50% { transform: translateY(-10px); }
             100% { transform: translateY(0); }
         }
         .floating {
             animation: float 4s infinite ease-in-out;
         }
-        .heart {
+        .petal {
             position: absolute;
             color: white;
-            font-size: 22px;
+            font-size: 18px;
             animation: floatUp 6s linear infinite;
             opacity: 0.8;
         }
@@ -117,13 +116,15 @@
 </head>
 <body>
 
-    <h1 id="greeting">Happy Valentines, Ellapot! 💖</h1>
+    <h1 id="greeting">Happy Valentine's, Ellapot! 💖</h1>
 
     <div class="content">
         <div class="flower-container">
             <img src="flowers.png" class="flower" id="flower">
         </div>
-        
+
+        <h2 id="message">Flowers for you 🌸</h2>
+
         <div class="envelope-container" id="envelope-container">
             <img src="envelope.png" class="envelope" id="envelope">
             <div class="message-box" id="message-box">
@@ -131,8 +132,6 @@
             </div>
         </div>
     </div>
-
-    <h2 id="message">Flowers for you 🌸</h2>
 
     <script>
         window.onload = function() {
@@ -153,22 +152,22 @@
                 }, 1000);
             }, 1000);
 
-            setInterval(createHeart, 800);
+            setInterval(createPetal, 900);
         };
 
-        function createHeart() {
-            const heart = document.createElement("div");
-            heart.innerHTML = "❤️";
-            heart.classList.add("heart");
-            document.body.appendChild(heart);
+        function createPetal() {
+            const petal = document.createElement("div");
+            petal.innerHTML = "🌸";
+            petal.classList.add("petal");
+            document.body.appendChild(petal);
 
             const randomX = Math.random() * window.innerWidth;
-            const randomSize = Math.random() * 25 + 15;
-            heart.style.left = `${randomX}px`;
-            heart.style.fontSize = `${randomSize}px`;
+            const randomSize = Math.random() * 25 + 10;
+            petal.style.left = `${randomX}px`;
+            petal.style.fontSize = `${randomSize}px`;
 
             setTimeout(() => {
-                heart.remove();
+                petal.remove();
             }, 6000);
         }
 
