@@ -44,16 +44,15 @@
             filter: drop-shadow(0 0 15px rgba(255, 192, 203, 0.7));
         }
         .envelope-container {
-    position: absolute;
-    bottom: 10px; /* Adjust para nasa tabi lang ng flowers */
-    left: 80px; /* Move it beside the flowers */
-    width: 60px; /* Smaller envelope */
-    max-width: 50px; /* Prevents it from becoming too big */
-    height: auto; /* Maintain aspect ratio */
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 2s ease-in-out, transform 2s ease-in-out;
-}
+            position: absolute;
+            bottom: -30px; /* Adjust to fit the encircled area */
+            left: 20px; /* Position inside the encircled area */
+            width: 40px; /* Smaller envelope */
+            height: auto;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 2s ease-in-out, transform 2s ease-in-out;
+        }
         .message-box {
             position: absolute;
             bottom: 50px;
@@ -75,38 +74,9 @@
             transform: scale(1);
             opacity: 1;
         }
-        h2 {
-            font-size: 28px;
-            font-weight: bold;
-            color: white;
-            opacity: 0;
-            transition: opacity 2s ease-in-out;
-            margin-top: 15px;
-            text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.7);
-        }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
-        }
-        @keyframes float {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-            100% { transform: translateY(0); }
-        }
-        .floating {
-            animation: float 3s infinite ease-in-out;
-        }
-        /* Floating Hearts Animation */
-        .heart {
-            position: absolute;
-            color: white;
-            font-size: 18px;
-            animation: floatUp 4s linear infinite;
-            opacity: 0.7;
-        }
-        @keyframes floatUp {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(-100vh); opacity: 0; }
         }
     </style>
 </head>
@@ -115,10 +85,7 @@
     <h1 id="greeting">Happy Valentines, Ellapot! 💖</h1>
 
     <div class="flower-container">
-        <!-- Flower Image -->
         <img src="flowers.png" class="flower" id="flower">
-
-        <!-- Tiny Envelope on the Flower -->
         <div class="envelope-container" id="envelope-container">
             <img src="envelope.png" class="envelope" id="envelope">
             <div class="message-box" id="message-box">
@@ -130,52 +97,21 @@
     <h2 id="message">Flowers for you 🌸</h2>
 
     <script>
-        // Show the flower & envelope with animation
         window.onload = function() {
             setTimeout(() => {
-                const flower = document.getElementById('flower');
-                const envelope = document.getElementById('envelope-container');
-
-                flower.style.opacity = 1;
-                flower.style.transform = "translateY(0)";
-                flower.classList.add("floating");
-
-                envelope.style.opacity = 1;
-                envelope.style.transform = "translateY(0)";
-                envelope.classList.add("floating");
-
+                document.getElementById('flower').style.opacity = 1;
+                document.getElementById('flower').style.transform = "translateY(0)";
+                document.getElementById('envelope-container').style.opacity = 1;
+                document.getElementById('envelope-container').style.transform = "translateY(0)";
                 setTimeout(() => {
                     document.getElementById('message').style.opacity = 1;
                 }, 1000);
             }, 1000);
-
-            // Generate floating hearts
-            setInterval(createHeart, 1000);
         };
 
-        // Function to create floating hearts
-        function createHeart() {
-            const heart = document.createElement("div");
-            heart.innerHTML = "❤️";
-            heart.classList.add("heart");
-            document.body.appendChild(heart);
-
-            const randomX = Math.random() * window.innerWidth;
-            const randomSize = Math.random() * 18 + 8;
-            heart.style.left = `${randomX}px`;
-            heart.style.fontSize = `${randomSize}px`;
-
-            setTimeout(() => {
-                heart.remove();
-            }, 4000);
-        }
-
-        // Envelope interaction
-        const envelopeContainer = document.getElementById("envelope-container");
-        envelopeContainer.addEventListener("click", function () {
+        document.getElementById("envelope-container").addEventListener("click", function () {
             this.classList.toggle("open");
         });
     </script>
-
 </body>
 </html>
