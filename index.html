@@ -38,27 +38,42 @@
             margin-top: 10px;
         }
         .flower {
-            width: 160px;
+            width: 220px; /* Increased size */
             opacity: 0;
             transform: translateY(50px);
-            transition: opacity 2s ease-in-out, transform 2s ease-in-out;
+            animation: fadeInUp 2s ease-in-out forwards 2s; /* Delayed to appear after text */
         }
-        h2 {
+        h2, .label {
             color: #b03554;
             font-size: 24px;
             opacity: 0;
-            transition: opacity 2s ease-in-out;
+            animation: fadeIn 2s ease-in-out forwards;
             margin-top: 15px;
+        }
+        .label {
+            font-size: 20px;
+            margin-bottom: 10px;
+            animation-delay: 3s; /* Delay before appearing */
         }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         /* Envelope Style */
         .envelope-container {
             position: relative;
             margin-top: 20px;
             cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out forwards 5s; /* Appears last */
+        }
+        .envelope-container:hover {
+            transform: scale(1.05);
         }
         .envelope {
             width: 120px;
@@ -103,12 +118,14 @@
 </head>
 <body>
 
-    <h1 id="greeting">Happy Valentines, Ellapot! ❤️</h1>
+    <h1 id="greeting">Happy Valentine's, Ellapot! ❤️</h1>
 
     <div class="flower-container">
-        <img src="flowers.png" class="flower" id="flower">
         <h2 id="message">Flowers for you 🌸</h2>
+        <img src="flowers.png" class="flower" id="flower">
     </div>
+
+    <div class="label">And also, a letter for you ✉️</div>
 
     <!-- Envelope (Click to reveal message) -->
     <div class="envelope-container" id="envelope-container">
@@ -121,12 +138,12 @@
     <script>
         window.onload = function() {
             setTimeout(() => {
-                const flower = document.getElementById('flower');
-                flower.style.opacity = 1;
-                flower.style.transform = "translateY(0)";
+                document.getElementById('message').style.opacity = 1;
 
                 setTimeout(() => {
-                    document.getElementById('message').style.opacity = 1;
+                    const flower = document.getElementById('flower');
+                    flower.style.opacity = 1;
+                    flower.style.transform = "translateY(0)";
                 }, 1000);
             }, 1000);
 
