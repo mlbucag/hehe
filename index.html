@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flowers for You</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #ffe6e6;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        h1 {
+            color: #d63384;
+            font-size: 28px;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+        .flower-container {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+        }
+        .flower {
+            position: absolute;
+            bottom: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            transition: bottom 2s ease-in-out, opacity 2s ease-in-out;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 id="message">Flowers for you 🌸</h1>
+    <div class="flower-container">
+        <img src="https://imgur.com/a/rcfdOhp" 
+             class="flower" id="flower">
+    </div>
+
+    <script>
+        window.onload = function() {
+            setTimeout(() => {
+                document.getElementById('message').style.opacity = 1;
+                const flower = document.getElementById('flower');
+                flower.style.opacity = 1;
+                flower.style.bottom = "50px"; // Move flower up
+            }, 1000);
+        };
+    </script>
+
+</body>
+</html>
