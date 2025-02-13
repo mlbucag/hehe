@@ -28,25 +28,26 @@
             font-weight: bold;
             margin-bottom: 20px;
             opacity: 0;
-            animation: fadeIn 2s ease-in-out forwards;
+            animation: fadeIn 1.5s ease-in-out forwards;
         }
         .container {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 20px;
+            position: relative;
         }
         .flower {
-            width: 160px;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+            width: 180px;
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 1s ease-in-out;
         }
         h2 {
             color: #b03554;
             font-size: 24px;
-            opacity: 0;
-            transition: opacity 1.5s ease-in-out;
-            margin-top: 15px;
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
+            margin-top: 10px;
         }
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -54,20 +55,23 @@
         }
         /* Envelope */
         .envelope-container {
-            position: relative;
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
             cursor: pointer;
-            transition: transform 0.3s ease-in-out;
+            width: 40px;
+            height: 40px;
         }
         .envelope {
-            width: 100px; /* Smaller envelope */
+            width: 100%;
             transition: transform 0.3s ease-in-out;
         }
         .message-box {
             position: absolute;
-            top: -80px;
+            bottom: 50px;
             left: 50%;
             transform: translateX(-50%) scale(0);
-            width: 200px;
+            width: 180px;
             background: white;
             padding: 10px;
             border-radius: 10px;
@@ -82,18 +86,6 @@
             transform: translateX(-50%) scale(1);
             opacity: 1;
         }
-        /* Floating Hearts */
-        .heart {
-            position: absolute;
-            color: #ff4d6d;
-            font-size: 20px;
-            animation: floatUp 6s linear infinite;
-            opacity: 0.8;
-        }
-        @keyframes floatUp {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(-100vh); opacity: 0; }
-        }
     </style>
 </head>
 <body>
@@ -105,50 +97,18 @@
         <div class="flower-container">
             <img src="flowers.png" class="flower" id="flower">
             <h2 id="message">Flowers for you 🌸</h2>
-        </div>
 
-        <!-- Envelope -->
-        <div class="envelope-container" id="envelope-container">
-            <img src="envelope.png" class="envelope" id="envelope">
-            <div class="message-box" id="message-box">
-                "You're special to me, and I hope this makes you smile. ❤️"
+            <!-- Tiny Envelope (Attached to flower) -->
+            <div class="envelope-container" id="envelope-container">
+                <img src="envelope.png" class="envelope" id="envelope">
+                <div class="message-box" id="message-box">
+                    "You're special to me, and I hope this makes you smile. ❤️"
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Show the flower smoothly
-        window.onload = function() {
-            setTimeout(() => {
-                const flower = document.getElementById('flower');
-                flower.style.opacity = 1;
-                flower.style.transform = "translateY(0)";
-
-                setTimeout(() => {
-                    document.getElementById('message').style.opacity = 1;
-                }, 800);
-            }, 800);
-
-            // Generate floating hearts
-            setInterval(createHeart, 1200);
-        };
-
-        function createHeart() {
-            const heart = document.createElement("div");
-            heart.innerHTML = "❤️";
-            heart.classList.add("heart");
-            document.body.appendChild(heart);
-
-            const randomX = Math.random() * window.innerWidth;
-            const randomSize = Math.random() * 15 + 10;
-            heart.style.left = `${randomX}px`;
-            heart.style.fontSize = `${randomSize}px`;
-
-            setTimeout(() => {
-                heart.remove();
-            }, 6000);
-        }
-
         // Envelope interaction
         const envelopeContainer = document.getElementById("envelope-container");
         envelopeContainer.addEventListener("click", function () {
