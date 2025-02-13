@@ -5,51 +5,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flowers for You</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             text-align: center;
-            background-color: #ffe6e6;
-            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #ffccd5, #ff99ac);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             overflow: hidden;
+            position: relative;
         }
         h1 {
-            color: #d63384;
-            font-size: 28px;
+            color: white;
+            font-size: 36px;
+            font-weight: bold;
+            text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.7);
             opacity: 0;
-            transition: opacity 2s ease-in-out;
+            animation: fadeIn 2s ease-in-out forwards;
         }
         .flower-container {
             position: relative;
-            height: 300px;
-            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
         }
         .flower {
-            position: absolute;
-            bottom: -150px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
-            transition: bottom 2s ease-in-out, opacity 2s ease-in-out;
+            width: 180px; /* Bigger size */
             opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 2s ease-in-out, transform 2s ease-in-out;
+            filter: drop-shadow(0 0 15px rgba(255, 192, 203, 0.6)); /* Glow effect */
+        }
+        h2 {
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            margin-top: 15px;
+            text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.7);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+        .flower.floating {
+            animation: float 3s infinite ease-in-out;
+        }
+
+        /* Floating hearts animation */
+        .heart {
+            position: absolute;
+            color: white;
+            font-size: 20px;
+            animation: floatUp 5s linear infinite;
+            opacity: 0.8;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <h1 id="message">Flowers for you 🌸</h1>
+    <h1 id="greeting">Happy Valentines, Ellapot! ❤️</h1>
+
     <div class="flower-container">
-        <img src="flowers.png" 
-             class="flower" id="flower">
+        <img src="flowers.png" class="flower" id="flower">
+        <h2 id="message">Flowers for you 🌸</h2>
     </div>
 
     <script>
+        // Show the flower with animation
         window.onload = function() {
             setTimeout(() => {
-                document.getElementById('message').style.opacity = 1;
                 const flower = document.getElementById('flower');
                 flower.style.opacity = 1;
-                flower.style.bottom = "50px"; // Move flower up
+                flower.style.transform = "translateY(0)";
+                flower.classList.add("floating");
+
+                setTimeout(() => {
+                    document.getElementById('message').style.opacity = 1;
+                }, 1000);
             }, 1000);
+            
+            // Generate floating hearts
+            setInterval(createHeart, 1000);
         };
+
+        // Function to create floating hearts
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.innerHTML = "❤️";
+            heart.classList.add("heart");
+            document.body.appendChild(heart);
+
+            const randomX = Math.random() * window.innerWidth;
+            const randomSize = Math.random() * 20 + 10;
+            heart.style.left = `${randomX}px`;
+            heart.style.fontSize = `${randomSize}px`;
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
     </script>
 
 </body>
