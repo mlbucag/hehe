@@ -30,69 +30,64 @@
             opacity: 0;
             animation: fadeIn 2s ease-in-out forwards;
         }
-        .flower-container {
-            position: relative;
+        .container {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            margin-top: 10px;
+            gap: 20px;
         }
         .flower {
             width: 160px;
             opacity: 0;
             transform: translateY(50px);
-            transition: opacity 2s ease-in-out, transform 2s ease-in-out;
+            transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
         }
         h2 {
             color: #b03554;
             font-size: 24px;
             opacity: 0;
-            transition: opacity 2s ease-in-out;
+            transition: opacity 1.5s ease-in-out;
             margin-top: 15px;
         }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-        /* Envelope Style */
+        /* Envelope */
         .envelope-container {
             position: relative;
-            margin-top: 20px;
             cursor: pointer;
+            transition: transform 0.3s ease-in-out;
         }
         .envelope {
-            width: 120px;
-            transition: transform 0.5s ease-in-out;
+            width: 100px; /* Smaller envelope */
+            transition: transform 0.3s ease-in-out;
         }
         .message-box {
             position: absolute;
-            top: 50%;
+            top: -80px;
             left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            width: 250px;
+            transform: translateX(-50%) scale(0);
+            width: 200px;
             background: white;
-            padding: 15px;
+            padding: 10px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             text-align: center;
-            font-size: 16px;
+            font-size: 14px;
             color: #b03554;
             opacity: 0;
-            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-        }
-        .open .envelope {
-            transform: translateY(-20px) rotateX(30deg);
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
         }
         .open .message-box {
-            transform: translate(-50%, -50%) scale(1);
+            transform: translateX(-50%) scale(1);
             opacity: 1;
         }
-        /* Floating hearts animation */
+        /* Floating Hearts */
         .heart {
             position: absolute;
             color: #ff4d6d;
             font-size: 20px;
-            animation: floatUp 5s linear infinite;
+            animation: floatUp 6s linear infinite;
             opacity: 0.8;
         }
         @keyframes floatUp {
@@ -105,20 +100,24 @@
 
     <h1 id="greeting">Happy Valentines, Ellapot! ❤️</h1>
 
-    <div class="flower-container">
-        <img src="flowers.png" class="flower" id="flower">
-        <h2 id="message">Flowers for you 🌸</h2>
-    </div>
+    <div class="container">
+        <!-- Flowers -->
+        <div class="flower-container">
+            <img src="flowers.png" class="flower" id="flower">
+            <h2 id="message">Flowers for you 🌸</h2>
+        </div>
 
-    <!-- Envelope (Click to reveal message) -->
-    <div class="envelope-container" id="envelope-container">
-        <img src="envelope.png" class="envelope" id="envelope">
-        <div class="message-box" id="message-box">
-            "You're special to me, and I hope this makes you smile. ❤️"  
+        <!-- Envelope -->
+        <div class="envelope-container" id="envelope-container">
+            <img src="envelope.png" class="envelope" id="envelope">
+            <div class="message-box" id="message-box">
+                "You're special to me, and I hope this makes you smile. ❤️"
+            </div>
         </div>
     </div>
 
     <script>
+        // Show the flower smoothly
         window.onload = function() {
             setTimeout(() => {
                 const flower = document.getElementById('flower');
@@ -127,11 +126,11 @@
 
                 setTimeout(() => {
                     document.getElementById('message').style.opacity = 1;
-                }, 1000);
-            }, 1000);
+                }, 800);
+            }, 800);
 
             // Generate floating hearts
-            setInterval(createHeart, 1000);
+            setInterval(createHeart, 1200);
         };
 
         function createHeart() {
@@ -141,13 +140,13 @@
             document.body.appendChild(heart);
 
             const randomX = Math.random() * window.innerWidth;
-            const randomSize = Math.random() * 20 + 10;
+            const randomSize = Math.random() * 15 + 10;
             heart.style.left = `${randomX}px`;
             heart.style.fontSize = `${randomSize}px`;
 
             setTimeout(() => {
                 heart.remove();
-            }, 5000);
+            }, 6000);
         }
 
         // Envelope interaction
