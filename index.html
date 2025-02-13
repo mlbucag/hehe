@@ -45,26 +45,26 @@
         }
         .envelope-container {
             position: absolute;
-            bottom: 10px;
-            right: 10px;
-            width: 40px; /* Small envelope */
+            bottom: 20px;
+            right: 20px;
+            width: 25px; /* SUPER SMALL Envelope */
             cursor: pointer;
             opacity: 0;
             transform: translateY(50px);
             transition: opacity 2s ease-in-out, transform 2s ease-in-out;
-            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7));
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7));
         }
         .message-box {
             position: absolute;
-            bottom: 70px;
+            bottom: 50px;
             right: -10px;
-            width: 200px;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 0 20px rgba(255, 192, 203, 0.6);
+            width: 180px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(255, 192, 203, 0.6);
             text-align: center;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: bold;
             color: #ff4d6d;
             opacity: 0;
@@ -90,7 +90,7 @@
         }
         @keyframes float {
             0% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); }
             100% { transform: translateY(0); }
         }
         .floating {
@@ -100,9 +100,9 @@
         .heart {
             position: absolute;
             color: white;
-            font-size: 20px;
-            animation: floatUp 5s linear infinite;
-            opacity: 0.8;
+            font-size: 18px;
+            animation: floatUp 4s linear infinite;
+            opacity: 0.7;
         }
         @keyframes floatUp {
             0% { transform: translateY(0); opacity: 1; }
@@ -118,11 +118,11 @@
         <!-- Flower Image -->
         <img src="flowers.png" class="flower" id="flower">
 
-        <!-- Small Envelope on the flower -->
+        <!-- Tiny Envelope on the Flower -->
         <div class="envelope-container" id="envelope-container">
             <img src="envelope.png" class="envelope" id="envelope">
             <div class="message-box" id="message-box">
-                "Sending you love and warmth today and always. 💌"
+                "A little love note just for you. 💌"
             </div>
         </div>
     </div>
@@ -161,13 +161,13 @@
             document.body.appendChild(heart);
 
             const randomX = Math.random() * window.innerWidth;
-            const randomSize = Math.random() * 20 + 10;
+            const randomSize = Math.random() * 18 + 8;
             heart.style.left = `${randomX}px`;
             heart.style.fontSize = `${randomSize}px`;
 
             setTimeout(() => {
                 heart.remove();
-            }, 5000);
+            }, 4000);
         }
 
         // Envelope interaction
