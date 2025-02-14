@@ -147,16 +147,16 @@
         }
 
         @keyframes flowerBounce {
-            0% { opacity: 0; transform: translateY(50px) scale(0.8); }
-            50% { opacity: 0.5; transform: translateY(-15px) scale(1.05); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
-        }
+    0% { opacity: 0; transform: translateY(50px) scale(0.8); }
+    50% { opacity: 0.8; transform: translateY(-10px) scale(1.02); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
 
         @keyframes shimmerEffect {
-            0% { filter: brightness(1); transform: scale(1); }
-            50% { filter: brightness(1.5); transform: scale(1.1); }
-            100% { filter: brightness(1); transform: scale(1); }
-        }
+    0% { filter: brightness(1); transform: scale(1); }
+    50% { filter: brightness(1.6) drop-shadow(0px 0px 10px rgba(255, 223, 186, 0.8)); transform: scale(1.05); }
+    100% { filter: brightness(1); transform: scale(1); }
+}
 
         @keyframes sway {
             0%, 100% { transform: rotate(0deg); }
@@ -169,9 +169,18 @@
         }
 
         @keyframes sparkleAnimation {
-            0% { transform: scale(1) translateY(0); opacity: 1; }
-            100% { transform: scale(1.5) translateY(-30px); opacity: 0; }
-        }
+    0% { transform: scale(1) translateY(0); opacity: 1; filter: drop-shadow(0px 0px 5px rgba(255, 223, 186, 0.8)); }
+    100% { transform: scale(1.5) translateY(-40px); opacity: 0; }
+}
+
+.sparkle {
+    position: absolute;
+    color: #ffd700;
+    font-size: 20px;
+    opacity: 0.9;
+    animation: sparkleAnimation 1.2s ease-out forwards;
+    pointer-events: none;
+}
     </style>
 </head>
 <body>
@@ -218,23 +227,33 @@
         }
 
         document.getElementById("flower").addEventListener("click", function(event) {
-            this.classList.add("shimmer");
-            for (let i = 0; i < 6; i++) createSparkle(event.clientX, event.clientY);
-        });
+    this.classList.add("shimmer");
+
+    for (let i = 0; i < 10; i++) { // Increased sparkle count
+        createSparkle(event.clientX, event.clientY);
+    }
+
+    setTimeout(() => {
+        this.classList.remove("shimmer");
+    }, 1800);
+});
 
         function createSparkle(x, y) {
-            const sparkle = document.createElement("div");
-            sparkle.innerHTML = "✨";
-            sparkle.classList.add("sparkle");
-            sparkle.style.left = `${x + (Math.random() * 40 - 20)}px`;
-            sparkle.style.top = `${y + (Math.random() * 40 - 20)}px`;
-            document.body.appendChild(sparkle);
-            setTimeout(() => { sparkle.remove(); }, 1500);
-        }
+    const sparkle = document.createElement("div");
+    sparkle.innerHTML = "✨";
+    sparkle.classList.add("sparkle");
+    
+    // Random positioning around click
+    sparkle.style.left = `${x + (Math.random() * 60 - 30)}px`;
+    sparkle.style.top = `${y + (Math.random() * 60 - 30)}px`;
+    
+    // Random sparkle size
+    sparkle.style.fontSize = `${Math.random() * 14 + 12}px`;
+    
+    document.body.appendChild(sparkle);
 
-        document.getElementById("envelope-container").addEventListener("click", function () {
-            this.classList.toggle("open");
-        });
+    setTimeout(() => { sparkle.remove(); }, 1200);
+}
     </script>
 
 </body>
