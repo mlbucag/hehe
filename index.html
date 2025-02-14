@@ -53,41 +53,44 @@
             animation-delay: 4s;
         }
 
-        /* Bouncy Flower Animation */
+        /* Flower */
         .flower {
             width: 260px;
             opacity: 0;
             transform: translateY(50px) scale(0.8);
             animation: flowerBounce 2.5s ease-out forwards 2s, sway 3s ease-in-out infinite 4.5s;
+            cursor: pointer;
+            transition: transform 0.5s ease, filter 0.5s ease;
         }
 
-        /* Flower Shimmer Effect */
+        /* Shimmer Effect */
         .shimmer {
-            animation: shimmerEffect 1.2s ease-in-out 1;
+            animation: shimmerEffect 1.5s ease-in-out;
         }
 
-        /* Envelope Bounce */
+        /* Sparkles */
+        .sparkle {
+            position: absolute;
+            color: #ffd700;
+            font-size: 18px;
+            opacity: 0.9;
+            animation: sparkleAnimation 1.5s ease-out forwards;
+        }
+
+        /* Envelope */
         .envelope-container {
             position: relative;
             margin-top: 20px;
             cursor: pointer;
-            transition: transform 0.3s ease-in-out;
             opacity: 0;
             animation: fadeInScaleBounce 2.5s ease-out forwards 5s;
         }
 
-        .envelope-container:hover {
-            transform: scale(1.05);
-        }
-
-        /* Floating Envelope */
         .envelope {
             width: 130px;
             transition: transform 0.5s ease-in-out;
-            animation: floatEnvelope 3s ease-in-out infinite;
         }
 
-        /* Message Box */
         .message-box {
             position: absolute;
             top: 50%;
@@ -107,12 +110,11 @@
             transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
         }
 
-        /* Envelope Open Animation */
-        .open .envelope {
-            transform: translateY(-20px) rotateX(30deg);
+        .envelope-container.open .envelope {
+            transform: translateY(-10px) rotateX(30deg);
         }
 
-        .open .message-box {
+        .envelope-container.open .message-box {
             transform: translate(-50%, -50%) scale(1);
             opacity: 1;
         }
@@ -161,16 +163,15 @@
             50% { transform: rotate(3deg); }
         }
 
-        @keyframes floatEnvelope {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
         @keyframes floatUp {
             0% { transform: translateY(0); opacity: 1; }
             100% { transform: translateY(-100vh); opacity: 0; }
         }
 
+        @keyframes sparkleAnimation {
+            0% { transform: scale(1) translateY(0); opacity: 1; }
+            100% { transform: scale(1.5) translateY(-30px); opacity: 0; }
+        }
     </style>
 </head>
 <body>
@@ -184,7 +185,6 @@
 
     <div class="label">And also, a letter for you ✉️</div>
 
-    <!-- Envelope (Click to reveal message) -->
     <div class="envelope-container" id="envelope-container">
         <img src="envelope.png" class="envelope" id="envelope">
         <div class="message-box" id="message-box">
@@ -196,18 +196,13 @@
         window.onload = function() {
             setTimeout(() => {
                 document.getElementById('message').style.opacity = 1;
-
                 setTimeout(() => {
                     const flower = document.getElementById('flower');
                     flower.style.opacity = 1;
                     flower.style.transform = "translateY(0)";
-
-                    // Add shimmer effect when flower fully appears
                     setTimeout(() => {
                         flower.classList.add("shimmer");
                     }, 1500);
-
-                    // Start floating hearts when flowers appear
                     setInterval(createHeart, 800);
                 }, 1000);
             }, 1000);
@@ -218,17 +213,26 @@
             heart.innerHTML = "❤️";
             heart.classList.add("heart");
             document.body.appendChild(heart);
-
-            const randomX = Math.random() * window.innerWidth;
-            heart.style.left = `${randomX}px`;
-
-            setTimeout(() => {
-                heart.remove();
-            }, 5000);
+            heart.style.left = `${Math.random() * window.innerWidth}px`;
+            setTimeout(() => { heart.remove(); }, 5000);
         }
 
-        const envelopeContainer = document.getElementById("envelope-container");
-        envelopeContainer.addEventListener("click", function () {
+        document.getElementById("flower").addEventListener("click", function(event) {
+            this.classList.add("shimmer");
+            for (let i = 0; i < 6; i++) createSparkle(event.clientX, event.clientY);
+        });
+
+        function createSparkle(x, y) {
+            const sparkle = document.createElement("div");
+            sparkle.innerHTML = "✨";
+            sparkle.classList.add("sparkle");
+            sparkle.style.left = `${x + (Math.random() * 40 - 20)}px`;
+            sparkle.style.top = `${y + (Math.random() * 40 - 20)}px`;
+            document.body.appendChild(sparkle);
+            setTimeout(() => { sparkle.remove(); }, 1500);
+        }
+
+        document.getElementById("envelope-container").addEventListener("click", function () {
             this.classList.toggle("open");
         });
     </script>
