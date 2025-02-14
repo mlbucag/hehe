@@ -53,44 +53,41 @@
             animation-delay: 4s;
         }
 
-        /* Flower */
+        /* Bouncy Flower Animation */
         .flower {
             width: 260px;
             opacity: 0;
             transform: translateY(50px) scale(0.8);
-            animation: flowerBounce 2.5s ease-out forwards 2s, sway 3s ease-in-out infinite 4.5s;
-            cursor: pointer;
-            transition: transform 0.5s ease, filter 0.5s ease;
+            animation: flowerBounce 3s ease-out forwards 2s, sway 3s ease-in-out infinite 4.5s;
         }
 
-        /* Shimmer Effect */
+        /* Flower Shimmer Effect */
         .shimmer {
-            animation: shimmerEffect 1.5s ease-in-out;
+            animation: shimmerEffect 1.2s ease-in-out 1;
         }
 
-        /* Sparkles */
-        .sparkle {
-            position: absolute;
-            color: #ffd700;
-            font-size: 18px;
-            opacity: 0.9;
-            animation: sparkleAnimation 1.5s ease-out forwards;
-        }
-
-        /* Envelope */
+        /* Envelope Bounce */
         .envelope-container {
             position: relative;
             margin-top: 20px;
             cursor: pointer;
+            transition: transform 0.3s ease-in-out;
             opacity: 0;
             animation: fadeInScaleBounce 2.5s ease-out forwards 5s;
         }
 
+        .envelope-container:hover {
+            transform: scale(1.05);
+        }
+
+        /* Floating Envelope */
         .envelope {
             width: 130px;
             transition: transform 0.5s ease-in-out;
+            animation: floatEnvelope 3s ease-in-out infinite;
         }
 
+        /* Message Box */
         .message-box {
             position: absolute;
             top: 50%;
@@ -110,11 +107,12 @@
             transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
         }
 
-        .envelope-container.open .envelope {
-            transform: translateY(-10px) rotateX(30deg);
+        /* Envelope Open Animation */
+        .open .envelope {
+            transform: translateY(-20px) rotateX(30deg);
         }
 
-        .envelope-container.open .message-box {
+        .open .message-box {
             transform: translate(-50%, -50%) scale(1);
             opacity: 1;
         }
@@ -147,20 +145,25 @@
         }
 
         @keyframes flowerBounce {
-    0% { opacity: 0; transform: translateY(50px) scale(0.8); }
-    50% { opacity: 0.8; transform: translateY(-10px) scale(1.02); }
-    100% { opacity: 1; transform: translateY(0) scale(1); }
-}
+            0% { opacity: 0; transform: translateY(50px) scale(0.8); }
+            50% { opacity: 0.5; transform: translateY(-15px) scale(1.05); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
 
         @keyframes shimmerEffect {
-    0% { filter: brightness(1); transform: scale(1); }
-    50% { filter: brightness(1.6) drop-shadow(0px 0px 10px rgba(255, 223, 186, 0.8)); transform: scale(1.05); }
-    100% { filter: brightness(1); transform: scale(1); }
-}
+            0% { filter: brightness(1); transform: scale(1); }
+            50% { filter: brightness(1.5); transform: scale(1.1); }
+            100% { filter: brightness(1); transform: scale(1); }
+        }
 
         @keyframes sway {
             0%, 100% { transform: rotate(0deg); }
             50% { transform: rotate(3deg); }
+        }
+
+        @keyframes floatEnvelope {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
 
         @keyframes floatUp {
@@ -168,19 +171,6 @@
             100% { transform: translateY(-100vh); opacity: 0; }
         }
 
-        @keyframes sparkleAnimation {
-    0% { transform: scale(1) translateY(0); opacity: 1; filter: drop-shadow(0px 0px 5px rgba(255, 223, 186, 0.8)); }
-    100% { transform: scale(1.5) translateY(-40px); opacity: 0; }
-}
-
-.sparkle {
-    position: absolute;
-    color: #ffd700;
-    font-size: 20px;
-    opacity: 0.9;
-    animation: sparkleAnimation 1.2s ease-out forwards;
-    pointer-events: none;
-}
     </style>
 </head>
 <body>
@@ -194,6 +184,7 @@
 
     <div class="label">And also, a letter for you ✉️</div>
 
+    <!-- Envelope (Click to reveal message) -->
     <div class="envelope-container" id="envelope-container">
         <img src="envelope.png" class="envelope" id="envelope">
         <div class="message-box" id="message-box">
@@ -205,13 +196,22 @@
         window.onload = function() {
             setTimeout(() => {
                 document.getElementById('message').style.opacity = 1;
+
                 setTimeout(() => {
                     const flower = document.getElementById('flower');
                     flower.style.opacity = 1;
                     flower.style.transform = "translateY(0)";
-                    setTimeout(() => {
+                    flower.style.transition = "opacity 3s ease-in-out, transform 3s ease-in-out";
+
+                    // Start periodic shimmer effect
+                    setInterval(() => {
                         flower.classList.add("shimmer");
-                    }, 1500);
+                        setTimeout(() => {
+                            flower.classList.remove("shimmer");
+                        }, 1200); 
+                    }, 4000);
+
+                    // Start floating hearts when flowers appear
                     setInterval(createHeart, 800);
                 }, 1000);
             }, 1000);
@@ -222,38 +222,19 @@
             heart.innerHTML = "❤️";
             heart.classList.add("heart");
             document.body.appendChild(heart);
-            heart.style.left = `${Math.random() * window.innerWidth}px`;
-            setTimeout(() => { heart.remove(); }, 5000);
+
+            const randomX = Math.random() * window.innerWidth;
+            heart.style.left = `${randomX}px`;
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
         }
 
-        document.getElementById("flower").addEventListener("click", function(event) {
-    this.classList.add("shimmer");
-
-    for (let i = 0; i < 10; i++) { // Increased sparkle count
-        createSparkle(event.clientX, event.clientY);
-    }
-
-    setTimeout(() => {
-        this.classList.remove("shimmer");
-    }, 1800);
-});
-
-        function createSparkle(x, y) {
-    const sparkle = document.createElement("div");
-    sparkle.innerHTML = "✨";
-    sparkle.classList.add("sparkle");
-    
-    // Random positioning around click
-    sparkle.style.left = `${x + (Math.random() * 60 - 30)}px`;
-    sparkle.style.top = `${y + (Math.random() * 60 - 30)}px`;
-    
-    // Random sparkle size
-    sparkle.style.fontSize = `${Math.random() * 14 + 12}px`;
-    
-    document.body.appendChild(sparkle);
-
-    setTimeout(() => { sparkle.remove(); }, 1200);
-}
+        const envelopeContainer = document.getElementById("envelope-container");
+        envelopeContainer.addEventListener("click", function () {
+            this.classList.toggle("open");
+        });
     </script>
 
 </body>
