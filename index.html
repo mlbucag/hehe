@@ -30,7 +30,7 @@
             font-weight: 700;
             margin-bottom: 20px;
             opacity: 0;
-            animation: fadeIn 2s ease-in-out forwards;
+            animation: fadeIn 1.5s ease-in-out forwards;
             text-shadow: 2px 2px 10px rgba(255, 163, 177, 0.3);
             letter-spacing: 1.2px;
         }
@@ -50,19 +50,19 @@
             font-size: 20px;
             font-weight: 400;
             margin-bottom: 10px;
-            animation-delay: 4s;
+            animation-delay: 2s;
         }
 
         .flower {
             width: 260px;
             opacity: 0;
-            transform: translateY(50px) scale(0.8);
-            animation: flowerBounce 2.5s ease-out forwards 2s;
+            transform: translateY(30px) scale(0.8);
+            animation: fadeInScaleBounce 5s ease-out forwards 1.2s;
         }
 
         @keyframes shimmerGlow {
             0%, 100% { filter: brightness(1); transform: scale(1); }
-            50% { filter: brightness(1.3) drop-shadow(0px 0px 8px rgba(255, 102, 120, 0.5)); transform: scale(1.05); }
+            50% { filter: brightness(1.5) drop-shadow(0px 0px 15px rgba(255, 102, 120, 0.8)); transform: scale(1.08); }
         }
 
         .envelope-container {
@@ -71,7 +71,7 @@
             cursor: pointer;
             transition: transform 0.3s ease-in-out;
             opacity: 0;
-            animation: fadeInScaleBounce 2.5s ease-out forwards 5s;
+            animation: fadeInScaleBounce 6s ease-out forwards 3s;
         }
 
         .envelope-container:hover {
@@ -100,15 +100,15 @@
             font-weight: 500;
             color: #b03554;
             opacity: 0;
-            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
         }
 
         .open .envelope {
-            animation: openEnvelope 0.6s ease-out forwards;
+            animation: openEnvelope 0.5s ease-out forwards;
         }
 
         .close .envelope {
-            animation: closeEnvelope 0.6s ease-out forwards;
+            animation: closeEnvelope 0.5s ease-out forwards;
         }
 
         .open .message-box {
@@ -141,14 +141,8 @@
         }
 
         @keyframes fadeInScaleBounce {
-            0% { opacity: 0; transform: scale(0.8); }
-            50% { opacity: 0.7; transform: scale(1.05); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-
-        @keyframes flowerBounce {
-            0% { opacity: 0; transform: translateY(50px) scale(0.8); }
-            50% { opacity: 0.5; transform: translateY(-15px) scale(1.05); }
+            0% { opacity: 0; transform: translateY(30px) scale(0.8); }
+            50% { opacity: 0.7; transform: translateY(-10px) scale(1.05); }
             100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
@@ -210,8 +204,8 @@
                     }, 4000);
 
                     setInterval(createHeart, 800);
-                }, 1000);
-            }, 1000);
+                }, 800);
+            }, 800);
         };
 
         function createHeart() {
