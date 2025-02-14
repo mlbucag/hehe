@@ -187,12 +187,18 @@
     </div>
 
     <script>
-        window.onload = function() {
+    window.onload = function() {
+        const flower = document.getElementById('flower');
+        const flowerImage = new Image();
+        flowerImage.src = "flowers.png";
+
+        flowerImage.onload = function() {
+            flower.src = flowerImage.src;
+            
             setTimeout(() => {
                 document.getElementById('message').style.opacity = 1;
 
                 setTimeout(() => {
-                    const flower = document.getElementById('flower');
                     flower.style.opacity = 1;
                     flower.style.transform = "translateY(0)";
 
@@ -207,32 +213,33 @@
                 }, 800);
             }, 800);
         };
+    };
 
-        function createHeart() {
-            const heart = document.createElement("div");
-            heart.innerHTML = "❤️";
-            heart.classList.add("heart");
-            document.body.appendChild(heart);
+    function createHeart() {
+        const heart = document.createElement("div");
+        heart.innerHTML = "❤️";
+        heart.classList.add("heart");
+        document.body.appendChild(heart);
 
-            const randomX = Math.random() * window.innerWidth;
-            heart.style.left = `${randomX}px`;
+        const randomX = Math.random() * window.innerWidth;
+        heart.style.left = `${randomX}px`;
 
-            setTimeout(() => {
-                heart.remove();
-            }, 5000);
+        setTimeout(() => {
+            heart.remove();
+        }, 5000);
+    }
+
+    const envelopeContainer = document.getElementById("envelope-container");
+    envelopeContainer.addEventListener("click", function () {
+        if (this.classList.contains("open")) {
+            this.classList.remove("open");
+            this.classList.add("close");
+        } else {
+            this.classList.remove("close");
+            this.classList.add("open");
         }
-
-        const envelopeContainer = document.getElementById("envelope-container");
-        envelopeContainer.addEventListener("click", function () {
-            if (this.classList.contains("open")) {
-                this.classList.remove("open");
-                this.classList.add("close");
-            } else {
-                this.classList.remove("close");
-                this.classList.add("open");
-            }
-        });
-    </script>
+    });
+</script>
 
 </body>
 </html>
