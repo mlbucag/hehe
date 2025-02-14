@@ -58,7 +58,12 @@
             width: 260px;
             opacity: 0;
             transform: translateY(50px) scale(0.8);
-            animation: flowerBounce 3s ease-in-out forwards 2s, sway 2s ease-in-out infinite 4s;
+            animation: flowerBounce 2.5s ease-out forwards 2s, sway 3s ease-in-out infinite 4.5s;
+        }
+
+        /* Flower Shimmer Effect */
+        .shimmer {
+            animation: shimmerEffect 1.2s ease-in-out 1;
         }
 
         /* Envelope Bounce */
@@ -68,7 +73,7 @@
             cursor: pointer;
             transition: transform 0.3s ease-in-out;
             opacity: 0;
-            animation: fadeInScaleBounce 3s ease-in-out forwards 5s;
+            animation: fadeInScaleBounce 2.5s ease-out forwards 5s;
         }
 
         .envelope-container:hover {
@@ -117,6 +122,7 @@
             position: absolute;
             color: #ff4d6d;
             font-size: 22px;
+            bottom: 0;
             animation: floatUp 5s linear infinite;
             opacity: 0.8;
         }
@@ -140,8 +146,14 @@
 
         @keyframes flowerBounce {
             0% { opacity: 0; transform: translateY(50px) scale(0.8); }
-            50% { opacity: 0.5; transform: translateY(-10px) scale(1.05); }
+            50% { opacity: 0.5; transform: translateY(-15px) scale(1.05); }
             100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes shimmerEffect {
+            0% { filter: brightness(1); transform: scale(1); }
+            50% { filter: brightness(1.5); transform: scale(1.1); }
+            100% { filter: brightness(1); transform: scale(1); }
         }
 
         @keyframes sway {
@@ -151,12 +163,12 @@
 
         @keyframes floatEnvelope {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); }
         }
 
         @keyframes floatUp {
-            0% { transform: translateY(0) translateX(0); opacity: 1; }
-            100% { transform: translateY(-100vh) translateX(10px); opacity: 0; }
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
         }
 
     </style>
@@ -189,11 +201,16 @@
                     const flower = document.getElementById('flower');
                     flower.style.opacity = 1;
                     flower.style.transform = "translateY(0)";
+
+                    // Add shimmer effect when flower fully appears
+                    setTimeout(() => {
+                        flower.classList.add("shimmer");
+                    }, 1500);
+
+                    // Start floating hearts when flowers appear
+                    setInterval(createHeart, 800);
                 }, 1000);
             }, 1000);
-
-            // Generate floating hearts
-            setInterval(createHeart, 1000);
         };
 
         function createHeart() {
@@ -203,16 +220,13 @@
             document.body.appendChild(heart);
 
             const randomX = Math.random() * window.innerWidth;
-            const randomSize = Math.random() * 20 + 10;
             heart.style.left = `${randomX}px`;
-            heart.style.fontSize = `${randomSize}px`;
 
             setTimeout(() => {
                 heart.remove();
             }, 5000);
         }
 
-        // Envelope interaction
         const envelopeContainer = document.getElementById("envelope-container");
         envelopeContainer.addEventListener("click", function () {
             this.classList.toggle("open");
